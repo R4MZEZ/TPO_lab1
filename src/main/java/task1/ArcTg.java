@@ -1,26 +1,22 @@
 package task1;
 
 public class ArcTg {
-//  public static double calculateArcsin(double x){
-//    if (Math.abs(x) > 1) {
-//      return Double.NaN;
-//    }
-//    double ans = x;
-//    double tmp = 1;
-//    double divider = 3;
-//    double multiplier = 1;
-//    while (tmp > 0.001){
-//      multiplier *= (divider - 2) / (divider - 1);
-//      tmp = multiplier * Math.pow(x, divider) / divider;
-//      ans += tmp;
-//      divider += 2;
-//    }
-//    return ans;
-//  }
 
+  /**
+   * Разбиение arctg в ряд Маклорена.
+   * arctg = x - x^3/3 + x^5/5 ...
+   * В отдельности рассмотрен случай |x| > 1, потому что ряд Маклорена в таком случае не сходится.
+   * Для этого используется математическое равенство arctg(x) + arctg(1/x) = PI/2.
+   * (в случае отрицательных значений, очевидно, знаки инвертируются).
+   * @param x аргумент функции
+   * @return значение функции
+   */
   public static double calculateArctg(double x){
+    if (Double.isNaN(x)) return Double.NaN;
+    boolean isGreater = false;
     if (Math.abs(x) > 1) {
-      return Double.NaN;
+      isGreater = true;
+      x = 1/x;
     }
     double ans = x;
     double tmp = 1;
@@ -32,7 +28,7 @@ public class ArcTg {
       divider += 2;
       sign *= -1;
     }
-    return ans;
+    return isGreater ? Math.copySign(Math.PI/2, x) - ans : ans;
   }
 
 }
