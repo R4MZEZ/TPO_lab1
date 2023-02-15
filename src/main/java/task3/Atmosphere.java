@@ -7,12 +7,12 @@ public class Atmosphere {
   public double humidity; // влажность
   public boolean moonVisible;
 
-  public Atmosphere(Weather curWeather, double density, double humidity) {
+  public Atmosphere(Weather curWeather, double density, double humidity, boolean MoonVisible) {
     this.curWeather = curWeather;
     this.density = density;
     this.humidity = humidity;
     this.isRarefied = density < 1.293;
-    this.moonVisible = Math.random() > 0.5;
+    this.moonVisible = MoonVisible;
   }
 
   public enum Weather{

@@ -10,7 +10,7 @@ import task3.Life;
 public class Main {
 
   public static void main(String[] args) {
-    Atmosphere atmosphere = new Atmosphere(Weather.SUNNY, 1, 2);
+    Atmosphere atmosphere = new Atmosphere(Weather.SUNNY, 1, 2, false);
     Life life = new Life(atmosphere);
     Human arthur = new Human("Arturitto", 20);
     Human oldman = new Human("Starik", 102);
