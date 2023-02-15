@@ -1,18 +1,32 @@
 package task3;
 
-public class Atmosphere {
-  public Weather curWeather;
-  public double density; // плотность
-  private boolean isRarefied; // разреженность
-  public double humidity; // влажность
-  public boolean moonVisible;
+import lombok.Getter;
+import lombok.Setter;
 
-  public Atmosphere(Weather curWeather, double density, double humidity, boolean MoonVisible) {
+@Getter
+@Setter
+public class Atmosphere {
+  private Weather curWeather;
+  private double density;   // плотность
+  private boolean isRarefied; // разреженность
+  private double humidity;  // влажность
+  private boolean moonVisible;
+
+  public Atmosphere(Weather curWeather, double density, double humidity, boolean moonVisible) {
+    if (density < 0 || humidity < 0) {
+      System.out.println("Кажется мы находимся в другой вселенной...");
+    }
     this.curWeather = curWeather;
     this.density = density;
     this.humidity = humidity;
     this.isRarefied = density < 1.293;
-    this.moonVisible = MoonVisible;
+    this.moonVisible = moonVisible;
+  }
+
+  @Override
+  public String toString() {
+    return (density < 0 || humidity < 0) ? "Атмосфера другой вселенной"
+            : String.format("Типичная атмосфера. Влажность: %f. Плотность: %f.", humidity, density);
   }
 
   public enum Weather{
@@ -27,7 +41,8 @@ public class Atmosphere {
     return isRarefied;
   }
 
-  public void setRarefied(boolean rarefied) {
-    isRarefied = rarefied;
+  public void setDensity(double density) {
+    this.density = density;
+    this.isRarefied = density < 1.293;
   }
 }

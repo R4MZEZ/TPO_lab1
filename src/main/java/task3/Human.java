@@ -1,21 +1,25 @@
 package task3;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.HashSet;
 import java.util.Set;
 
+@Getter
+@Setter
 public class Human {
 
-  public String name;
-  public int age;
-  public int coordX;
-  public int coordY;
-  public Set<Human> fieldOfVision;
+  private String name;
+  private int age;
+  private int coordX;
+  private int coordY;
+  private Set<Human> fieldOfVision = new HashSet<>();
   private int rangeOfVision;
 
   public Human(String name, int age) {
     this.name = name;
     this.age = age;
-    fieldOfVision = new HashSet<>();
   }
 
   public boolean makeStep(boolean forward, boolean axisX) {
@@ -26,20 +30,23 @@ public class Human {
     newX = axisX ? coordX + step : coordX;
     newY = axisX ? coordY : coordY + step;
 
-    for (Human c : fieldOfVision) {
-      if (c.coordX == newX || c.coordY == newY)
+    for (Human c : fieldOfVision)
+      if (c.coordX == newX && c.coordY == newY)
         return false;
-    }
+
     coordX = newX;
     coordY = newY;
+
     return true;
   }
 
-  public int getRangeOfVision() {
-    return rangeOfVision;
+  @Override
+  public String toString() {
+    return "Человек по имени " + name;
   }
 
-  public void setRangeOfVision(int rangeOfVision) {
-    this.rangeOfVision = rangeOfVision;
+  public void setCoords(int x, int y) {
+    this.coordX = x;
+    this.coordY = y;
   }
 }

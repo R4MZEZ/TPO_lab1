@@ -1,25 +1,33 @@
 package task3;
 
-import javafx.util.Pair;
+import lombok.Getter;
+import lombok.Setter;
 
-public class CoordsPair extends Pair implements Comparable {
+@Getter
+@Setter
+public class CoordsPair {
 
-  /**
-   * Creates a new pair
-   *
-   * @param key   The key for this pair
-   * @param value The value to use for this pair
-   */
+  private int key;
+  private int value;
+
   public CoordsPair(int key, int value) {
-    super(key, value);
+    this.key = key;
+    this.value = value;
   }
 
   @Override
-  public int compareTo(Object o) {
-    if (((CoordsPair) o).getKey() == this.getKey()
-        && ((CoordsPair) o).getValue() == this.getValue()) {
-      return 0;
-    }else
-      return -1;
+  public int hashCode() {
+    return key + value;
   }
+
+  @Override
+  public boolean equals(Object obj){
+    return obj.getClass() == this.getClass() && ((CoordsPair) obj).getKey() == key && ((CoordsPair) obj).getValue() == value;
+  }
+
+  @Override
+  public String toString() {
+    return String.format("X: %d, Y: %d", key, value);
+  }
+
 }
