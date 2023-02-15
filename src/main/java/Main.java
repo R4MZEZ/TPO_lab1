@@ -1,45 +1,23 @@
 import task2.Dijkstra;
 import task2.Graph;
 import task2.Node;
+import task3.Atmosphere;
+import task3.Atmosphere.Weather;
+import task3.CoordsPair;
+import task3.Human;
+import task3.Life;
 
 public class Main {
 
   public static void main(String[] args) {
-    Node nodeA = new Node("A");
-    Node nodeB = new Node("B");
-    Node nodeC = new Node("C");
-    Node nodeD = new Node("D");
-    Node nodeE = new Node("E");
-    Node nodeF = new Node("F");
+    Atmosphere atmosphere = new Atmosphere(Weather.SUNNY, 1, 2);
+    Life life = new Life(atmosphere);
+    Human arthur = new Human("Arturitto", 20);
+    Human oldman = new Human("Starik", 102);
 
-    nodeA.addDestination(nodeB, 10);
-    nodeA.addDestination(nodeC, 15);
+    life.addCreature(arthur, new CoordsPair(0, 0));
+    life.addCreature(oldman, new CoordsPair(1, 1));
 
-    nodeB.addDestination(nodeD, 12);
-    nodeB.addDestination(nodeF, 15);
-
-    nodeC.addDestination(nodeE, 10);
-
-    nodeD.addDestination(nodeE, 2);
-    nodeD.addDestination(nodeF, 1);
-
-    nodeF.addDestination(nodeE, 5);
-
-    Graph graph = new Graph();
-
-    graph.addNode(nodeA);
-    graph.addNode(nodeB);
-    graph.addNode(nodeC);
-    graph.addNode(nodeD);
-    graph.addNode(nodeE);
-    graph.addNode(nodeF);
-
-    Dijkstra.calculateShortestPathFromSource(nodeA);
-    System.out.println(nodeA.getShortestPath());
-    System.out.println(nodeB.getShortestPath());
-    System.out.println(nodeC.getShortestPath());
-    System.out.println(nodeD.getShortestPath());
-    System.out.println(nodeE.getShortestPath());
-    System.out.println(nodeF.getShortestPath());
+    life.moveCreature(new CoordsPair(0,0), new CoordsPair(1, 1));
   }
 }
