@@ -12,22 +12,27 @@ public class ArcTg {
    * @return значение функции
    */
   public static double calculateArctg(double x){
+
     if (Double.isNaN(x)) return Double.NaN;
+
     boolean isGreater = false;
     if (Math.abs(x) > 1) {
       isGreater = true;
       x = 1/x;
     }
+
     double ans = x;
     double tmp = 1;
     double divider = 3;
     int sign = -1;
+
     while (Math.abs(tmp) > 0.001){
       tmp = sign * Math.pow(x, divider) / divider;
       ans += tmp;
       divider += 2;
       sign *= -1;
     }
+
     return isGreater ? Math.copySign(Math.PI/2, x) - ans : ans;
   }
 
