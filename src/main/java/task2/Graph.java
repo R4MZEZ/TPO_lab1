@@ -1,22 +1,29 @@
 package task2;
 
-import java.util.HashSet;
-import java.util.Set;
+import lombok.Getter;
+
+import java.util.*;
 
 public class Graph {
 
-  private final Set<Node> nodes = new HashSet<>();
+    @Getter
+    private final List<Node> nodes = new LinkedList<>();
 
-  public void addNode(Node nodeA) {
-    nodes.add(nodeA);
-  }
+    public void addNode(Node nodeA) {
+        nodes.add(nodeA);
+    }
 
-  public Set<Node> getNodes() {
-    return nodes;
-  }
+    public void addAll(Set<Node> nodes) {this.nodes.addAll(nodes);}
 
-  @Override
-  public String toString() {
-    return nodes.toString();
-  }
+    public Optional<Node> findNode(String name) {
+        for(Node node : nodes) {
+            if (node.getName().equals(name)) return Optional.of(node);
+        }
+        return Optional.empty();
+    }
+
+    @Override
+    public String toString() {
+        return nodes.toString();
+    }
 }
