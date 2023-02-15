@@ -36,11 +36,11 @@ public class ArturoLifeTest {
 
     @Test
     public void atmosphereTest() {
-        Assertions.assertEquals("Типичная атмосфера. Влажность: 2,000000. Плотность: 2,000000.", atmosphere.toString());
+        Assertions.assertEquals("Typical Atmosphere. Humidity: 2,000000. Density: 2,000000.", atmosphere.toString());
         atmosphere.setDensity(1);
         Assertions.assertTrue(atmosphere.isRarefied());
         atmosphere.setDensity(-1);
-        Assertions.assertEquals("Атмосфера другой вселенной", atmosphere.toString());
+        Assertions.assertEquals("Atmosphere of different universe", atmosphere.toString());
     }
 
     @Test
@@ -49,7 +49,7 @@ public class ArturoLifeTest {
         Assertions.assertFalse(arthur.makeStep(true, false));
         Assertions.assertEquals(1, arthur.getCoordX());
         Assertions.assertEquals(0, arthur.getCoordY());
-        Assertions.assertEquals("Человек по имени Arturitto", arthur.toString());
+        Assertions.assertEquals("Human with name Arturitto", arthur.toString());
         Assertions.assertTrue(arthur.makeStep(false, true));
     }
 

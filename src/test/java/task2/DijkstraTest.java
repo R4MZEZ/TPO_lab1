@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.*;
 
-public class DijkstraTestService {
+public class DijkstraTest {
     private Graph graph;
     private Dijkstra dijkstra;
     private static Graph expected;
@@ -82,9 +82,13 @@ public class DijkstraTestService {
 
         int counter = 0;
         while (dijkstra.unsettledNodes.size() != 0) {
-            Assertions.assertIterableEquals(checkUnsettled.get(counter), dijkstra.getUnsettledNodes());
+            final List<Node> unsettled = checkUnsettled.get(counter);
+            dijkstra.getUnsettledNodes().forEach(node -> {
+                Assertions.assertTrue(unsettled.contains(node));
+            });
+            Assertions.assertEquals(unsettled.size(), dijkstra.getUnsettledNodes().size());
             currentNode = dijkstra.iteration(currentNode);
-            Assertions.assertTrue(expected.getNodes().containsAll(dijkstra.settledNodes));
+            Assertions.assertTrue(expected.getNodes().containsAll(dijkstra.getSettledNodes()));
             Assertions.assertEquals(dijkstra.settledNodes.size(), ++counter);
         }
     }

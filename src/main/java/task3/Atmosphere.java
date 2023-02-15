@@ -25,8 +25,8 @@ public class Atmosphere {
 
   @Override
   public String toString() {
-    return (density < 0 || humidity < 0) ? "Атмосфера другой вселенной"
-            : String.format("Типичная атмосфера. Влажность: %f. Плотность: %f.", humidity, density);
+    return (density < 0 || humidity < 0) ? "Atmosphere of different universe"
+            : String.format("Typical Atmosphere. Humidity: %f. Density: %f.", humidity, density);
   }
 
   public enum Weather{

@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
-Test set: task3.ArturoLifeTest
+Test set: task1.ArcTgTest
 -------------------------------------------------------------------------------
-Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.028 s - in task3.ArturoLifeTest
+Tests run: 12, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.099 s - in task1.ArcTgTest

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="task3.ArturoLifeTest" time="0.028" tests="6" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report.xsd" name="task1.ArcTgTest" time="0.099" tests="12" errors="0" skipped="0" failures="0">
   <properties>
     <property name="sun.desktop" value="windows"/>
     <property name="awt.toolkit" value="sun.awt.windows.WToolkit"/>
@@ -61,10 +61,16 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="55.0"/>
   </properties>
-  <testcase name="movementTest" classname="task3.ArturoLifeTest" time="0.019"/>
-  <testcase name="humanTest" classname="task3.ArturoLifeTest" time="0.003"/>
-  <testcase name="atmosphereTest" classname="task3.ArturoLifeTest" time="0.002"/>
-  <testcase name="coordTest" classname="task3.ArturoLifeTest" time="0.001"/>
-  <testcase name="notUniqueCoordCreatureTest" classname="task3.ArturoLifeTest" time="0"/>
-  <testcase name="fieldOfVisionTest" classname="task3.ArturoLifeTest" time="0"/>
+  <testcase name="test{double}[1]" classname="task1.ArcTgTest" time="0.039"/>
+  <testcase name="test{double}[2]" classname="task1.ArcTgTest" time="0.002"/>
+  <testcase name="test{double}[3]" classname="task1.ArcTgTest" time="0"/>
+  <testcase name="test{double}[4]" classname="task1.ArcTgTest" time="0.001"/>
+  <testcase name="test{double}[5]" classname="task1.ArcTgTest" time="0"/>
+  <testcase name="test{double}[6]" classname="task1.ArcTgTest" time="0"/>
+  <testcase name="test{double}[7]" classname="task1.ArcTgTest" time="0"/>
+  <testcase name="test{double}[8]" classname="task1.ArcTgTest" time="0.001"/>
+  <testcase name="test{double}[9]" classname="task1.ArcTgTest" time="0"/>
+  <testcase name="test{double}[10]" classname="task1.ArcTgTest" time="0.001"/>
+  <testcase name="test{double}[11]" classname="task1.ArcTgTest" time="0.001"/>
+  <testcase name="test{double}[12]" classname="task1.ArcTgTest" time="0"/>
 </testsuite>

@@ -42,7 +42,7 @@ public class Human {
 
   @Override
   public String toString() {
-    return "Человек по имени " + name;
+    return "Human with name " + name;
   }
 
   public void setCoords(int x, int y) {
