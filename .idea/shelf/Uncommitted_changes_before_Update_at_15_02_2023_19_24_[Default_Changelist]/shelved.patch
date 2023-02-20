@@ -1,0 +1,476 @@
+Index: src/main/java/task2/Node.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package task2;\r\n\r\nimport java.util.HashMap;\r\nimport java.util.LinkedList;\r\nimport java.util.List;\r\nimport java.util.Map;\r\n\r\npublic class Node {\r\n\r\n  private String name;\r\n\r\n  private List<Node> shortestPath = new LinkedList<>();\r\n\r\n  private Integer distance = Integer.MAX_VALUE;\r\n\r\n  Map<Node, Integer> adjacentNodes = new HashMap<>();\r\n\r\n  public void addDestination(Node destination, int distance) {\r\n    adjacentNodes.put(destination, distance);\r\n  }\r\n\r\n  public Node(String name) {\r\n    this.name = name;\r\n  }\r\n\r\n  public String getName() {\r\n    return name;\r\n  }\r\n\r\n  public void setName(String name) {\r\n    this.name = name;\r\n  }\r\n\r\n  public List<Node> getShortestPath() {\r\n    return shortestPath;\r\n  }\r\n\r\n  public void setShortestPath(List<Node> shortestPath) {\r\n    this.shortestPath = shortestPath;\r\n  }\r\n\r\n  public Integer getDistance() {\r\n    return distance;\r\n  }\r\n\r\n  public void setDistance(Integer distance) {\r\n    this.distance = distance;\r\n  }\r\n\r\n  public Map<Node, Integer> getAdjacentNodes() {\r\n    return adjacentNodes;\r\n  }\r\n\r\n  public void setAdjacentNodes(Map<Node, Integer> adjacentNodes) {\r\n    this.adjacentNodes = adjacentNodes;\r\n  }\r\n\r\n  @Override\r\n  public String toString() {\r\n    return name;\r\n  }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/task2/Node.java b/src/main/java/task2/Node.java
+--- a/src/main/java/task2/Node.java	(revision 2d440ef8a43fbd13a03b472e9b35767e41aa718e)
++++ b/src/main/java/task2/Node.java	(date 1676477707847)
+@@ -1,62 +1,37 @@
+ package task2;
+ 
+-import java.util.HashMap;
+-import java.util.LinkedList;
+-import java.util.List;
+-import java.util.Map;
++import lombok.Getter;
++import lombok.Setter;
+ 
+-public class Node {
++import java.util.*;
++
++@Getter
++@Setter
++public class Node{
+ 
+   private String name;
+-
+   private List<Node> shortestPath = new LinkedList<>();
+-
+   private Integer distance = Integer.MAX_VALUE;
+-
+   Map<Node, Integer> adjacentNodes = new HashMap<>();
+ 
+   public void addDestination(Node destination, int distance) {
+     adjacentNodes.put(destination, distance);
+   }
+-
+   public Node(String name) {
+     this.name = name;
+   }
+-
+-  public String getName() {
+-    return name;
+-  }
+-
+-  public void setName(String name) {
+-    this.name = name;
+-  }
+-
+-  public List<Node> getShortestPath() {
+-    return shortestPath;
+-  }
+-
+-  public void setShortestPath(List<Node> shortestPath) {
+-    this.shortestPath = shortestPath;
+-  }
+-
+-  public Integer getDistance() {
+-    return distance;
+-  }
+-
+-  public void setDistance(Integer distance) {
++  public Node(String name, Integer distance) {
+     this.distance = distance;
+-  }
+-
+-  public Map<Node, Integer> getAdjacentNodes() {
+-    return adjacentNodes;
+-  }
+-
+-  public void setAdjacentNodes(Map<Node, Integer> adjacentNodes) {
+-    this.adjacentNodes = adjacentNodes;
++    this.name = name;
+   }
+ 
+   @Override
+   public String toString() {
+-    return name;
++    return name + " : " + distance;
++  }
++
++  @Override
++  public boolean equals(Object obj) {
++    return obj.getClass() == this.getClass() && Objects.equals(((Node) obj).getDistance(), this.getDistance());
+   }
+ }
+Index: src/main/java/task2/Dijkstra.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package task2;\r\n\r\nimport java.util.HashSet;\r\nimport java.util.LinkedList;\r\nimport java.util.Map.Entry;\r\nimport java.util.Set;\r\n\r\npublic class Dijkstra {\r\n  public static void calculateShortestPathFromSource(Node source) {\r\n    source.setDistance(0);\r\n\r\n    Set<Node> settledNodes = new HashSet<>();\r\n    Set<Node> unsettledNodes = new HashSet<>();\r\n\r\n    unsettledNodes.add(source);\r\n\r\n    while (unsettledNodes.size() != 0) {\r\n      Node currentNode = getLowestDistanceNode(unsettledNodes);\r\n      unsettledNodes.remove(currentNode);\r\n      for (Entry< Node, Integer> adjacencyPair:\r\n          currentNode.getAdjacentNodes().entrySet()) {\r\n        Node adjacentNode = adjacencyPair.getKey();\r\n        Integer edgeWeight = adjacencyPair.getValue();\r\n        if (!settledNodes.contains(adjacentNode)) {\r\n          calculateMinimumDistance(adjacentNode, edgeWeight, currentNode);\r\n          unsettledNodes.add(adjacentNode);\r\n        }\r\n      }\r\n      settledNodes.add(currentNode);\r\n    }\r\n  }\r\n\r\n  private static Node getLowestDistanceNode(Set < Node > unsettledNodes) {\r\n    Node lowestDistanceNode = null;\r\n    int lowestDistance = Integer.MAX_VALUE;\r\n    for (Node node: unsettledNodes) {\r\n      int nodeDistance = node.getDistance();\r\n      if (nodeDistance < lowestDistance) {\r\n        lowestDistance = nodeDistance;\r\n        lowestDistanceNode = node;\r\n      }\r\n    }\r\n    return lowestDistanceNode;\r\n  }\r\n\r\n  private static void calculateMinimumDistance(Node evaluationNode,\r\n      Integer edgeWeigh, Node sourceNode) {\r\n    Integer sourceDistance = sourceNode.getDistance();\r\n    if (sourceDistance + edgeWeigh < evaluationNode.getDistance()) {\r\n      evaluationNode.setDistance(sourceDistance + edgeWeigh);\r\n      LinkedList<Node> shortestPath = new LinkedList<>(sourceNode.getShortestPath());\r\n      shortestPath.add(sourceNode);\r\n      evaluationNode.setShortestPath(shortestPath);\r\n    }\r\n  }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/task2/Dijkstra.java b/src/main/java/task2/Dijkstra.java
+--- a/src/main/java/task2/Dijkstra.java	(revision 2d440ef8a43fbd13a03b472e9b35767e41aa718e)
++++ b/src/main/java/task2/Dijkstra.java	(date 1676474409176)
+@@ -1,50 +1,53 @@
+ package task2;
+ 
++import lombok.Getter;
++
++import java.util.Comparator;
+ import java.util.HashSet;
+ import java.util.LinkedList;
+ import java.util.Map.Entry;
+ import java.util.Set;
++import java.util.concurrent.atomic.AtomicReference;
+ 
++@Getter
+ public class Dijkstra {
+-  public static void calculateShortestPathFromSource(Node source) {
+-    source.setDistance(0);
+ 
+-    Set<Node> settledNodes = new HashSet<>();
+-    Set<Node> unsettledNodes = new HashSet<>();
++  Set<Node> settledNodes = new HashSet<>();
++  Set<Node> unsettledNodes = new HashSet<>();
+ 
++  public void calculateShortestPathFromSource(Node source) {
++    if (source == null) return;
++
++    source.setDistance(0);
+     unsettledNodes.add(source);
++    Node currentNode = getLowestDistanceNode();
+ 
+     while (unsettledNodes.size() != 0) {
+-      Node currentNode = getLowestDistanceNode(unsettledNodes);
+-      unsettledNodes.remove(currentNode);
+-      for (Entry< Node, Integer> adjacencyPair:
+-          currentNode.getAdjacentNodes().entrySet()) {
+-        Node adjacentNode = adjacencyPair.getKey();
+-        Integer edgeWeight = adjacencyPair.getValue();
+-        if (!settledNodes.contains(adjacentNode)) {
+-          calculateMinimumDistance(adjacentNode, edgeWeight, currentNode);
+-          unsettledNodes.add(adjacentNode);
+-        }
+-      }
+-      settledNodes.add(currentNode);
+-    }
++      currentNode = iteration(currentNode);
++    }
++  }
++
++  protected Node iteration(Node currentNode) {
++    unsettledNodes.remove(currentNode);
++
++    currentNode
++            .getAdjacentNodes()
++            .entrySet()
++            .stream().filter(entry -> !settledNodes.contains(entry.getKey()))
++            .forEach(entry -> {
++              calculateMinimumDistance(entry.getKey(), entry.getValue(), currentNode);
++              unsettledNodes.add(entry.getKey());
++            });
++
++    settledNodes.add(currentNode);
++    return getLowestDistanceNode();
+   }
+ 
+-  private static Node getLowestDistanceNode(Set < Node > unsettledNodes) {
+-    Node lowestDistanceNode = null;
+-    int lowestDistance = Integer.MAX_VALUE;
+-    for (Node node: unsettledNodes) {
+-      int nodeDistance = node.getDistance();
+-      if (nodeDistance < lowestDistance) {
+-        lowestDistance = nodeDistance;
+-        lowestDistanceNode = node;
+-      }
+-    }
+-    return lowestDistanceNode;
++  protected Node getLowestDistanceNode() {
++    return unsettledNodes.stream().min(Comparator.comparing(Node::getDistance)).orElse(null);
+   }
+ 
+-  private static void calculateMinimumDistance(Node evaluationNode,
+-      Integer edgeWeigh, Node sourceNode) {
++  protected void calculateMinimumDistance(Node evaluationNode, Integer edgeWeigh, Node sourceNode) {
+     Integer sourceDistance = sourceNode.getDistance();
+     if (sourceDistance + edgeWeigh < evaluationNode.getDistance()) {
+       evaluationNode.setDistance(sourceDistance + edgeWeigh);
+Index: src/main/java/Main.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import task2.Dijkstra;\r\nimport task2.Graph;\r\nimport task2.Node;\r\n\r\npublic class Main {\r\n\r\n  public static void main(String[] args) {\r\n    Node nodeA = new Node(\"A\");\r\n    Node nodeB = new Node(\"B\");\r\n    Node nodeC = new Node(\"C\");\r\n    Node nodeD = new Node(\"D\");\r\n    Node nodeE = new Node(\"E\");\r\n    Node nodeF = new Node(\"F\");\r\n\r\n    nodeA.addDestination(nodeB, 10);\r\n    nodeA.addDestination(nodeC, 15);\r\n\r\n    nodeB.addDestination(nodeD, 12);\r\n    nodeB.addDestination(nodeF, 15);\r\n\r\n    nodeC.addDestination(nodeE, 10);\r\n\r\n    nodeD.addDestination(nodeE, 2);\r\n    nodeD.addDestination(nodeF, 1);\r\n\r\n    nodeF.addDestination(nodeE, 5);\r\n\r\n    Graph graph = new Graph();\r\n\r\n    graph.addNode(nodeA);\r\n    graph.addNode(nodeB);\r\n    graph.addNode(nodeC);\r\n    graph.addNode(nodeD);\r\n    graph.addNode(nodeE);\r\n    graph.addNode(nodeF);\r\n\r\n    Dijkstra.calculateShortestPathFromSource(nodeA);\r\n    System.out.println(nodeA.getShortestPath());\r\n    System.out.println(nodeB.getShortestPath());\r\n    System.out.println(nodeC.getShortestPath());\r\n    System.out.println(nodeD.getShortestPath());\r\n    System.out.println(nodeE.getShortestPath());\r\n    System.out.println(nodeF.getShortestPath());\r\n  }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/Main.java b/src/main/java/Main.java
+--- a/src/main/java/Main.java	(revision 2d440ef8a43fbd13a03b472e9b35767e41aa718e)
++++ b/src/main/java/Main.java	(date 1676471998683)
+@@ -1,11 +1,10 @@
+ import task2.Dijkstra;
+-import task2.Graph;
+ import task2.Node;
+ 
+ public class Main {
+ 
+   public static void main(String[] args) {
+-    Node nodeA = new Node("A");
++    /*Node nodeA = new Node("A");
+     Node nodeB = new Node("B");
+     Node nodeC = new Node("C");
+     Node nodeD = new Node("D");
+@@ -25,21 +24,12 @@
+ 
+     nodeF.addDestination(nodeE, 5);
+ 
+-    Graph graph = new Graph();
+-
+-    graph.addNode(nodeA);
+-    graph.addNode(nodeB);
+-    graph.addNode(nodeC);
+-    graph.addNode(nodeD);
+-    graph.addNode(nodeE);
+-    graph.addNode(nodeF);
+-
+     Dijkstra.calculateShortestPathFromSource(nodeA);
+     System.out.println(nodeA.getShortestPath());
+     System.out.println(nodeB.getShortestPath());
+     System.out.println(nodeC.getShortestPath());
+     System.out.println(nodeD.getShortestPath());
+     System.out.println(nodeE.getShortestPath());
+-    System.out.println(nodeF.getShortestPath());
++    System.out.println(nodeF.getShortestPath());*/
+   }
+ }
+Index: src/main/java/task2/Graph.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package task2;\r\n\r\nimport java.util.HashSet;\r\nimport java.util.Set;\r\n\r\npublic class Graph {\r\n\r\n  private final Set<Node> nodes = new HashSet<>();\r\n\r\n  public void addNode(Node nodeA) {\r\n    nodes.add(nodeA);\r\n  }\r\n\r\n  public Set<Node> getNodes() {\r\n    return nodes;\r\n  }\r\n\r\n  @Override\r\n  public String toString() {\r\n    return nodes.toString();\r\n  }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/task2/Graph.java b/src/main/java/task2/Graph.java
+--- a/src/main/java/task2/Graph.java	(revision 2d440ef8a43fbd13a03b472e9b35767e41aa718e)
++++ b/src/main/java/task2/Graph.java	(date 1676477707883)
+@@ -1,22 +1,29 @@
+ package task2;
+ 
+-import java.util.HashSet;
+-import java.util.Set;
++import lombok.Getter;
++
++import java.util.*;
+ 
+ public class Graph {
+ 
+-  private final Set<Node> nodes = new HashSet<>();
++    @Getter
++    private final List<Node> nodes = new LinkedList<>();
+ 
+-  public void addNode(Node nodeA) {
+-    nodes.add(nodeA);
+-  }
++    public void addNode(Node nodeA) {
++        nodes.add(nodeA);
++    }
+ 
+-  public Set<Node> getNodes() {
+-    return nodes;
+-  }
++    public void addAll(Set<Node> nodes) {this.nodes.addAll(nodes);}
++
++    public Optional<Node> findNode(String name) {
++        for(Node node : nodes) {
++            if (node.getName().equals(name)) return Optional.of(node);
++        }
++        return Optional.empty();
++    }
+ 
+-  @Override
+-  public String toString() {
+-    return nodes.toString();
+-  }
+-}
++    @Override
++    public String toString() {
++        return nodes.toString();
++    }
++}
+\ No newline at end of file
+Index: .idea/compiler.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"CompilerConfiguration\">\r\n    <annotationProcessing>\r\n      <profile name=\"Maven default annotation processors profile\" enabled=\"true\">\r\n        <sourceOutputDir name=\"target/generated-sources/annotations\" />\r\n        <sourceTestOutputDir name=\"target/generated-test-sources/test-annotations\" />\r\n        <outputRelativeToContentRoot value=\"true\" />\r\n        <module name=\"TPO_lab1\" />\r\n        <module name=\"lab1\" />\r\n      </profile>\r\n    </annotationProcessing>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/compiler.xml b/.idea/compiler.xml
+--- a/.idea/compiler.xml	(revision 2d440ef8a43fbd13a03b472e9b35767e41aa718e)
++++ b/.idea/compiler.xml	(date 1676472767636)
+@@ -2,6 +2,7 @@
+ <project version="4">
+   <component name="CompilerConfiguration">
+     <annotationProcessing>
++      <profile default="true" name="Default" enabled="true" />
+       <profile name="Maven default annotation processors profile" enabled="true">
+         <sourceOutputDir name="target/generated-sources/annotations" />
+         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ExternalStorageConfigurationManager\" enabled=\"true\" />\r\n  <component name=\"MavenProjectsManager\">\r\n    <option name=\"originalFiles\">\r\n      <list>\r\n        <option value=\"$PROJECT_DIR$/pom.xml\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_1_8\" default=\"true\" project-jdk-name=\"8\" project-jdk-type=\"JavaSDK\">\r\n    <output url=\"file://$PROJECT_DIR$/out\" />\r\n  </component>\r\n  <component name=\"ProjectType\">\r\n    <option name=\"id\" value=\"jpab\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision 2d440ef8a43fbd13a03b472e9b35767e41aa718e)
++++ b/.idea/misc.xml	(date 1676475098027)
+@@ -8,7 +8,7 @@
+       </list>
+     </option>
+   </component>
+-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" default="true" project-jdk-name="8" project-jdk-type="JavaSDK">
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
+     <output url="file://$PROJECT_DIR$/out" />
+   </component>
+   <component name="ProjectType">
+Index: pom.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project xmlns=\"http://maven.apache.org/POM/4.0.0\"\r\n  xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\r\n  xsi:schemaLocation=\"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd\">\r\n  <modelVersion>4.0.0</modelVersion>\r\n\r\n  <groupId>org.example</groupId>\r\n  <artifactId>lab1</artifactId>\r\n  <version>1.0-SNAPSHOT</version>\r\n\r\n  <dependencies>\r\n\r\n      <dependency>\r\n        <groupId>org.junit.jupiter</groupId>\r\n        <artifactId>junit-jupiter-engine</artifactId>\r\n        <version>5.8.2</version>\r\n        <scope>test</scope>\r\n      </dependency>\r\n\r\n      <dependency>\r\n        <groupId>org.junit.jupiter</groupId>\r\n        <artifactId>junit-jupiter-params</artifactId>\r\n        <version>5.8.2</version>\r\n        <scope>test</scope>\r\n      </dependency>\r\n\r\n  </dependencies>\r\n\r\n  <properties>\r\n    <maven.compiler.source>8</maven.compiler.source>\r\n    <maven.compiler.target>8</maven.compiler.target>\r\n  </properties>\r\n\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/pom.xml b/pom.xml
+--- a/pom.xml	(revision 2d440ef8a43fbd13a03b472e9b35767e41aa718e)
++++ b/pom.xml	(date 1676475202978)
+@@ -7,8 +7,20 @@
+   <groupId>org.example</groupId>
+   <artifactId>lab1</artifactId>
+   <version>1.0-SNAPSHOT</version>
++    <build>
++        <plugins>
++            <plugin>
++                <groupId>org.apache.maven.plugins</groupId>
++                <artifactId>maven-compiler-plugin</artifactId>
++                <configuration>
++                    <source>9</source>
++                    <target>9</target>
++                </configuration>
++            </plugin>
++        </plugins>
++    </build>
+ 
+-  <dependencies>
++    <dependencies>
+ 
+       <dependency>
+         <groupId>org.junit.jupiter</groupId>
+@@ -23,12 +35,19 @@
+         <version>5.8.2</version>
+         <scope>test</scope>
+       </dependency>
++
++    <dependency>
++      <groupId>org.projectlombok</groupId>
++      <artifactId>lombok</artifactId>
++      <version>1.18.26</version>
++      <scope>provided</scope>
++    </dependency>
+ 
+   </dependencies>
+ 
+   <properties>
+-    <maven.compiler.source>8</maven.compiler.source>
+-    <maven.compiler.target>8</maven.compiler.target>
++    <maven.compiler.source>11</maven.compiler.source>
++    <maven.compiler.target>11</maven.compiler.target>
+   </properties>
+ 
+ </project>
+\ No newline at end of file
+Index: src/test/java/task2/DijkstraTestService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/test/java/task2/DijkstraTestService.java b/src/test/java/task2/DijkstraTestService.java
+new file mode 100644
+--- /dev/null	(date 1676478268836)
++++ b/src/test/java/task2/DijkstraTestService.java	(date 1676478268836)
+@@ -0,0 +1,91 @@
++package task2;
++
++import org.junit.jupiter.api.Assertions;
++import org.junit.jupiter.api.BeforeAll;
++import org.junit.jupiter.api.BeforeEach;
++import org.junit.jupiter.api.Test;
++
++import java.util.*;
++
++public class DijkstraTestService {
++    private Graph graph;
++    private Dijkstra dijkstra;
++    private static Graph expected;
++    private final List<List<Node>> checkUnsettled = Arrays.asList(
++            List.of(new Node("A", 0)),
++            List.of(new Node("C", 15), new Node("B", 10)),
++            List.of(new Node("C", 15), new Node("D", 22), new Node("F", 25)),
++            List.of(new Node("D", 22), new Node("F", 25), new Node("E", 25)),
++            List.of(new Node("F", 23), new Node("E", 24)),
++            List.of(new Node("E", 24))
++    );
++
++    @BeforeAll
++    static void init() {
++        expected = new Graph();
++        expected.addAll(Set.of(
++                new Node("A", 0),
++                new Node("B", 10),
++                new Node("C", 15),
++                new Node("D", 22),
++                new Node("E", 24),
++                new Node("F", 23)
++        ));
++    }
++
++    @BeforeEach
++    public void initGraph() {
++        graph = new Graph();
++        dijkstra = new Dijkstra();
++        Node nodeA = new Node("A");
++        Node nodeB = new Node("B");
++        Node nodeC = new Node("C");
++        Node nodeD = new Node("D");
++        Node nodeE = new Node("E");
++        Node nodeF = new Node("F");
++
++        nodeA.addDestination(nodeB, 10);
++        nodeA.addDestination(nodeC, 15);
++        nodeB.addDestination(nodeD, 12);
++        nodeB.addDestination(nodeF, 15);
++        nodeC.addDestination(nodeE, 10);
++        nodeD.addDestination(nodeE, 2);
++        nodeD.addDestination(nodeF, 1);
++        nodeF.addDestination(nodeE, 5);
++
++        graph.addNode(nodeA);
++        graph.addNode(nodeB);
++        graph.addNode(nodeC);
++        graph.addNode(nodeD);
++        graph.addNode(nodeE);
++        graph.addNode(nodeF);
++    }
++
++    @Test
++    public void testOnFinalDistanceDependsA() {
++        dijkstra.calculateShortestPathFromSource(graph.findNode("A").orElse(null));
++        graph.getNodes().forEach(node ->
++                    Assertions.assertTrue(
++                            node.equals(Objects.requireNonNull(expected.findNode(node.getName()).orElse(null)))
++                    )
++        );
++    }
++
++    @Test
++    public void testOnIteration() {
++        Node source = graph.findNode("A").orElse(null);
++        Assertions.assertNotNull(source);
++
++        source.setDistance(0);
++        dijkstra.getUnsettledNodes().add(source);
++        Node currentNode = dijkstra.getLowestDistanceNode();
++
++        int counter = 0;
++        while (dijkstra.unsettledNodes.size() != 0) {
++            Assertions.assertIterableEquals(checkUnsettled.get(counter), dijkstra.getUnsettledNodes());
++            currentNode = dijkstra.iteration(currentNode);
++            Assertions.assertTrue(expected.getNodes().containsAll(dijkstra.settledNodes));
++            Assertions.assertEquals(dijkstra.settledNodes.size(), ++counter);
++        }
++    }
++}
