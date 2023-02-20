@@ -60,6 +60,7 @@ public class Life {
             Human stranger = checkForCollision(human);
             if (stranger != null) {
                 human.getFieldOfVision().add(stranger);
+                stranger.getFieldOfVision().add(human);
                 human.makeStep(!forward, true);
                 return false;
             }
@@ -79,6 +80,7 @@ public class Life {
             Human stranger = checkForCollision(human);
             if (stranger != null) {
                 human.getFieldOfVision().add(stranger);
+                stranger.getFieldOfVision().add(human);
                 human.makeStep(!forward, false);
                 return false;
             }
