@@ -64,6 +64,7 @@ public class Life {
                 return false;
             }
             updateCoords(oldCoords);
+            oldCoords = new CoordsPair(human.getCoordX(), human.getCoordY());
             updateFOV(human);
 
         }
@@ -82,6 +83,7 @@ public class Life {
                 return false;
             }
             updateCoords(oldCoords);
+            oldCoords = new CoordsPair(human.getCoordX(), human.getCoordY());
             updateFOV(human);
         }
         return true;

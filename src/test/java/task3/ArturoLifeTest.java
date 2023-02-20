@@ -85,7 +85,7 @@ public class ArturoLifeTest {
         Assertions.assertTrue(life.moveCreature(new CoordsPair(0, 0), new CoordsPair(1, 0)));
         Assertions.assertEquals(5, arthur.getFieldOfVision().size());
         Assertions.assertEquals(5, oldman.getFieldOfVision().size());
-        Assertions.assertTrue(life.moveCreature(new CoordsPair(1, 0), new CoordsPair(1, 4)));
+        Assertions.assertTrue(life.moveCreature(new CoordsPair(1, 0), new CoordsPair(-3, -3)));
         Assertions.assertEquals(0, arthur.getFieldOfVision().size());
         Assertions.assertEquals(4, oldman.getFieldOfVision().size());
         Assertions.assertEquals(-3, arthur.getCoordX());
