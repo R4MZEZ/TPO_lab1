@@ -16,6 +16,7 @@ public class Node{
 
   public void addDestination(Node destination, int distance) {
     adjacentNodes.put(destination, distance);
+    destination.adjacentNodes.put(this, distance);
   }
   public Node(String name) {
     this.name = name;

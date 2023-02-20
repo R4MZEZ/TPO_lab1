@@ -4,6 +4,8 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
 
 import java.util.*;
 
@@ -91,5 +93,116 @@ public class DijkstraTest {
             Assertions.assertTrue(expected.getNodes().containsAll(dijkstra.getSettledNodes()));
             Assertions.assertEquals(dijkstra.settledNodes.size(), ++counter);
         }
+    }
+
+    @Test
+    public void testEmpty() {
+        graph = new Graph();
+        Node nodeA = new Node("A");
+        dijkstra.calculateShortestPathFromSource(nodeA);
+        Assertions.assertEquals(0, graph.getNodes().size());
+    }
+
+    @Test
+    public void testZero() {
+        graph = new Graph();
+        Node nodeA = new Node("A");
+        Node nodeB = new Node("B");
+        Node nodeC = new Node("C");
+
+        nodeA.addDestination(nodeB, 0);
+        nodeA.addDestination(nodeC, 0);
+        nodeB.addDestination(nodeC, 0);
+
+        graph.addNode(nodeA);
+        graph.addNode(nodeB);
+        graph.addNode(nodeC);
+
+        dijkstra.calculateShortestPathFromSource(nodeA);
+        Assertions.assertEquals(3, graph.getNodes().size());
+        graph.getNodes().forEach(node -> {
+            Assertions.assertEquals(node.getName().equals("A") ? 0 : 1, node.getShortestPath().size());
+            Assertions.assertEquals(0, node.getDistance());
+        });
+    }
+
+    @ParameterizedTest
+    @ValueSource(ints = {42, 311, 765, 13, 14, 222})
+    public void randomTest(int seed) {
+        int maxPathLength = 10;
+        int maxEdgeWeight = 200;
+        int minEdgeWeight = 100;
+        int maxShortEdge = 20;
+        int minShortEdge = 10;
+
+        Random random = new Random();
+        random.setSeed(seed);
+        graph = new Graph();
+        Node node = new Node("root");
+        graph.addNode(node);
+
+        int pathLength = random.nextInt(maxPathLength);
+        int[] piecesOfPath = new int[pathLength];
+
+        for(int i = 0; i < pathLength; i++) {
+            Node newNode = new Node(Integer.toString(i));
+            int path = minEdgeWeight + random.nextInt(maxEdgeWeight - minEdgeWeight);
+            node.addDestination(newNode, path);
+            Node shortNode = node;
+            int currentPath = 0;
+            while(true) {
+                int shortPath = minShortEdge + random.nextInt(maxShortEdge - minShortEdge);
+                if (currentPath + shortPath >= path) break;
+                currentPath += shortPath;
+                Node newShortNode = new Node(Integer.toString(i) + "." + Integer.toString(currentPath));
+                shortNode.addDestination(newShortNode, shortPath);
+                shortNode = newShortNode;
+                graph.addNode(shortNode);
+            }
+            piecesOfPath[i] = currentPath;
+            shortNode.addDestination(newNode, 0);
+            node = newNode;
+            graph.addNode(node);
+        }
+
+        dijkstra.calculateShortestPathFromSource(graph.findNode("root").orElse(null));
+        System.out.println(graph);
+
+        int path = 0;
+        for(int i = 0; i < pathLength; i++) {
+            node = graph.findNode(Integer.toString(i)).orElse(null);
+            assert node != null;
+            Assertions.assertEquals(piecesOfPath[i] + path, node.getDistance());
+            path += piecesOfPath[i];
+        }
+    }
+
+    @Test
+    public void fullGraph() {
+        graph = new Graph();
+
+        Node nodeA = new Node("A");
+        Node nodeB = new Node("B");
+        Node nodeC = new Node("C");
+        Node nodeD = new Node("D");
+
+        nodeA.addDestination(nodeB, 20);
+        nodeA.addDestination(nodeC, 5);
+        nodeA.addDestination(nodeD, 30);
+        nodeB.addDestination(nodeC, 3);
+        nodeB.addDestination(nodeD, 2);
+        nodeC.addDestination(nodeD, 1);
+
+        graph.addNode(nodeA);
+        graph.addNode(nodeB);
+        graph.addNode(nodeC);
+        graph.addNode(nodeD);
+
+        dijkstra.calculateShortestPathFromSource(nodeA);
+
+        Assertions.assertEquals(0, nodeA.getDistance());
+        Assertions.assertEquals(8, nodeB.getDistance());
+        Assertions.assertEquals(5, nodeC.getDistance());
+        Assertions.assertEquals(6, nodeD.getDistance());
     }
 }

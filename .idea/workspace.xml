@@ -55,14 +55,7 @@
       <recent name="C:\Data\Labs\TPO\TPO_lab1\src" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ArturoLifeTest.fieldOfVisionTest">
-    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Main" />
-      <module name="TPO_lab1" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="JUnit.DijkstraTest">
     <configuration default="true" type="ArquillianTestNG" factoryName="" nameIsGenerated="true">
       <option name="arquillianRunConfiguration">
         <value>
@@ -72,52 +65,6 @@
       <option name="TEST_OBJECT" value="CLASS" />
       <properties />
       <listeners />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ArcTgTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="TPO_lab1" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="task1.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="task1" />
-      <option name="MAIN_CLASS_NAME" value="task1.ArcTgTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ArturoLifeTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="TPO_lab1" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="task3.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="task3" />
-      <option name="MAIN_CLASS_NAME" value="task3.ArturoLifeTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="ArturoLifeTest.fieldOfVisionTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="TPO_lab1" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="task3.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="task3" />
-      <option name="MAIN_CLASS_NAME" value="task3.ArturoLifeTest" />
-      <option name="METHOD_NAME" value="fieldOfVisionTest" />
-      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -132,8 +79,71 @@
       </extension>
       <option name="PACKAGE_NAME" value="task2" />
       <option name="MAIN_CLASS_NAME" value="task2.DijkstraTest" />
-      <option name="METHOD_NAME" value="" />
       <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DijkstraTest.fullGraph" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TPO_lab1" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="task2.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="task2" />
+      <option name="MAIN_CLASS_NAME" value="task2.DijkstraTest" />
+      <option name="METHOD_NAME" value="fullGraph" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DijkstraTest.randomTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TPO_lab1" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="task2.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="task2" />
+      <option name="MAIN_CLASS_NAME" value="task2.DijkstraTest" />
+      <option name="METHOD_NAME" value="randomTest(int)" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DijkstraTest.testEmpty" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TPO_lab1" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="task2.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="task2" />
+      <option name="MAIN_CLASS_NAME" value="task2.DijkstraTest" />
+      <option name="METHOD_NAME" value="testEmpty" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="DijkstraTest.testZero" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="TPO_lab1" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="task2.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="task2" />
+      <option name="MAIN_CLASS_NAME" value="task2.DijkstraTest" />
+      <option name="METHOD_NAME" value="testZero" />
+      <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
@@ -162,20 +172,20 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Application.Main" />
-      <item itemvalue="JUnit.DijkstraTest" />
-      <item itemvalue="JUnit.ArturoLifeTest" />
-      <item itemvalue="JUnit.ArcTgTest" />
       <item itemvalue="Maven.lab1" />
-      <item itemvalue="JUnit.ArturoLifeTest.fieldOfVisionTest" />
+      <item itemvalue="JUnit.DijkstraTest.testEmpty" />
+      <item itemvalue="JUnit.DijkstraTest.testZero" />
+      <item itemvalue="JUnit.DijkstraTest.randomTest" />
+      <item itemvalue="JUnit.DijkstraTest.fullGraph" />
+      <item itemvalue="JUnit.DijkstraTest" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ArturoLifeTest.fieldOfVisionTest" />
-        <item itemvalue="JUnit.ArturoLifeTest" />
-        <item itemvalue="JUnit.ArcTgTest" />
         <item itemvalue="JUnit.DijkstraTest" />
-        <item itemvalue="Application.Main" />
+        <item itemvalue="JUnit.DijkstraTest.fullGraph" />
+        <item itemvalue="JUnit.DijkstraTest.randomTest" />
+        <item itemvalue="JUnit.DijkstraTest.testZero" />
+        <item itemvalue="JUnit.DijkstraTest.testEmpty" />
       </list>
     </recent_temporary>
   </component>
@@ -190,7 +200,7 @@
       <workItem from="1676465001895" duration="14529000" />
       <workItem from="1676479878462" duration="7536000" />
       <workItem from="1676487498165" duration="1484000" />
-      <workItem from="1676889648045" duration="2988000" />
+      <workItem from="1676889648045" duration="6200000" />
     </task>
     <task id="LOCAL-00001" summary="Тест для 1 задания">
       <created>1676467974877</created>
