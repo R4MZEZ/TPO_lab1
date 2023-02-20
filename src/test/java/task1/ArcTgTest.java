@@ -11,7 +11,7 @@ public class ArcTgTest {
 
     @BeforeAll
     static void init() {
-        DELTA = 0.01;
+        DELTA = 0.0001;
     }
 
     /**
@@ -19,7 +19,7 @@ public class ArcTgTest {
      * @param param очередное значение функции
      */
     @ParameterizedTest
-    @ValueSource(doubles = {-10.0, -1.01, -1, -0.99, -0.01, 0, 10.0, 1.01, 1, 0.99, 0.01, Double.NaN})
+    @ValueSource(doubles = {-10.0, -1.01, -1, -0.99, -0.01, 0, 10.0, 1.01, 1, 0.99, 0.01, Double.NaN, Double.POSITIVE_INFINITY, Double.NEGATIVE_INFINITY})
     public void test(double param) {
         Assertions.assertEquals(Math.atan(param), ArcTg.calculateArctg(param), DELTA);
     }

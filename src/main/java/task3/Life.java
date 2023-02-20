@@ -101,8 +101,8 @@ public class Life {
 
     protected void updateCoords(CoordsPair oldCoords) {
         Human human = creatureMap.get(oldCoords);
-        creatureMap.remove(oldCoords);
         CoordsPair newCoords = new CoordsPair(human.getCoordX(), human.getCoordY());
+        creatureMap.remove(oldCoords);
         creatureMap.put(newCoords, human);
     }
 

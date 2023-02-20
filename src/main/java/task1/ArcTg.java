@@ -26,7 +26,7 @@ public class ArcTg {
     double divider = 3;
     int sign = -1;
 
-    while (Math.abs(tmp) > 0.001){
+    while (Math.abs(tmp) > 0.0001){
       tmp = sign * Math.pow(x, divider) / divider;
       ans += tmp;
       divider += 2;
